@@ -1,0 +1,38 @@
+sqlplus mca8/mca8@172.16.50.43/fisat
+
+set linesize 100;
+
+create table Employee8(Empno number primary key, Ename varchar(20) not null, Job varchar(20), Mgr number check(Mgr in (1,2)), Sal number check(Sal>5000));
+
+Alter table Employee8 add Section varchar(20);
+
+desc Employee8;
+
+Alter table Employee8 modify Job varchar(25);
+
+desc Employee8;
+
+Alter table Employee8 rename column Job to Designation;
+
+desc Employee8;
+
+Alter table Employee8 drop column Mgr;
+
+desc Employee8;
+
+insert into Employee8 values(1, 'Allen', 'Developer', 45000, 'Sales');
+insert into Employee8 values(2, 'John', 'Accountant', 50000, 'Finance');
+insert into Employee8 values(3, 'Harry', 'Developer', 76000, 'Purchase');
+insert into Employee8 values(4, 'Peter', 'Tester', 55000, 'Insurance');
+insert into Employee8 values(5, 'Jerrin', 'HR', 34000, 'Sales');
+insert into Employee8 values(6, 'Harry', 'Manager', 78000, 'Purchase');
+
+Select * from Employee8;
+
+Select * from Employee8 where Section = 'Purchase';
+
+Select * from Employee8 where Empno = 2;
+
+Select distinct Section from Employee8;
+
+Select Ename, Designation from Employee8 where (Sal>50000);

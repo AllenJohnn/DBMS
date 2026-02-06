@@ -1,0 +1,143 @@
+developer@ccfl6-pc8:~/AllenMCA25/DBMS/Exp1$ sqlplus mca8/mca8@172.16.50.43/fisat
+
+SQL*Plus: Release 23.0.0.0.0 - Production on Fri Feb 6 10:33:34 2026
+Version 23.4.0.24.05
+
+Copyright (c) 1982, 2024, Oracle.  All rights reserved.
+
+Last Successful login time: Fri Feb 06 2026 10:25:48 +05:30
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.9.1.0.0
+
+SQL> set linesize 100;
+SQL> create table Employee8(Empno number primary key, Ename varchar(20) not null, Job varchar(20), Mgr number check(Mgr in (1,2)), Sal number check(Sal>5000));
+
+Table created.
+
+SQL> Alter table Employee8 add Section varchar(20);
+
+Table altered.
+
+SQL> desc Employee8;
+ Name						       Null?	Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMPNO						       NOT NULL NUMBER
+ ENAME						       NOT NULL VARCHAR2(20)
+ JOB								VARCHAR2(20)
+ MGR								NUMBER
+ SAL								NUMBER
+ SECTION							VARCHAR2(20)
+
+SQL> Alter table Employee8 modify Job varchar(25);
+
+Table altered.
+
+SQL> desc Employee8;
+ Name						       Null?	Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMPNO						       NOT NULL NUMBER
+ ENAME						       NOT NULL VARCHAR2(20)
+ JOB								VARCHAR2(25)
+ MGR								NUMBER
+ SAL								NUMBER
+ SECTION							VARCHAR2(20)
+
+SQL> Alter table Employee8 rename column Job to Designation;
+
+Table altered.
+
+SQL> desc Employee8;
+ Name						       Null?	Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMPNO						       NOT NULL NUMBER
+ ENAME						       NOT NULL VARCHAR2(20)
+ DESIGNATION							VARCHAR2(25)
+ MGR								NUMBER
+ SAL								NUMBER
+ SECTION							VARCHAR2(20)
+
+SQL> Alter table Employee8 drop column Mgr;
+
+Table altered.
+
+SQL> desc Employee8;
+ Name						       Null?	Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMPNO						       NOT NULL NUMBER
+ ENAME						       NOT NULL VARCHAR2(20)
+ DESIGNATION							VARCHAR2(25)
+ SAL								NUMBER
+ SECTION							VARCHAR2(20)
+
+SQL> insert into Employee8 values(1, 'Allen', 'Developer', 45000, 'Sales');
+
+1 row created.
+
+SQL> insert into Employee8 values(2, 'John', 'Accountant', 50000, 'Finance');
+
+1 row created.
+
+SQL> insert into Employee8 values(3, 'Harry', 'Developer', 76000, 'Purchase');
+
+1 row created.
+
+SQL> insert into Employee8 values(4, 'Peter', 'Tester', 55000, 'Insurance');
+
+1 row created.
+
+SQL> insert into Employee8 values(5, 'Jerrin', 'HR', 34000, 'Sales');
+
+1 row created.
+
+SQL> insert into Employee8 values(6, 'Harry', 'Manager', 78000, 'Purchase');
+
+1 row created.
+
+SQL> Select * from Employee8;
+
+     EMPNO ENAME		DESIGNATION			 SAL SECTION
+---------- -------------------- ------------------------- ---------- --------------------
+	 1 Allen		Developer		       45000 Sales
+	 2 John 		Accountant		       50000 Finance
+	 3 Harry		Developer		       76000 Purchase
+	 4 Peter		Tester			       55000 Insurance
+	 5 Jerrin		HR			       34000 Sales
+	 6 Harry		Manager 		       78000 Purchase
+
+6 rows selected.
+
+SQL> Select * from Employee8 where Section = 'Purchase';
+
+     EMPNO ENAME		DESIGNATION			 SAL SECTION
+---------- -------------------- ------------------------- ---------- --------------------
+	 3 Harry		Developer		       76000 Purchase
+	 6 Harry		Manager 		       78000 Purchase
+
+SQL> Select * from Employee8 where Empno = 2;
+
+     EMPNO ENAME		DESIGNATION			 SAL SECTION
+---------- -------------------- ------------------------- ---------- --------------------
+	 2 John 		Accountant		       50000 Finance
+
+SQL> Select distinct Section from Employee8;
+
+SECTION
+--------------------
+Sales
+Insurance
+Finance
+Purchase
+
+SQL> Select Ename, Designation from Employee8 where (Sal>50000);
+
+ENAME		     DESIGNATION
+-------------------- -------------------------
+Harry		     Developer
+Peter		     Tester
+Harry		     Manager
+
+SQL> 
+
+
